@@ -10,6 +10,31 @@ private:
     int x, y;
 
 public:
+    Point()
+    {
+        x = y = 0;
+    }
+
+    Point(int _x, int _y)
+    {
+        x = _x;
+        y = _y;
+    }
+
+    Point(Point &p)
+    {
+        this->x = p.x;
+        this->y = p.y;
+    }
+    
+    int operator[](int i)
+    {
+        if (i == 1)
+            return x;
+        else
+            return y;
+    }
+
     void InputPoint();
     void Display();
     void Hide();
