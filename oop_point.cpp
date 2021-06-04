@@ -120,6 +120,7 @@ public:
 
     void Draw()
     {
+        cout << "Disk: ";
         Circle::Draw();
         cout << "--Fill with color: " << FillColor << endl;
         cout << "--Outlined with color: " << this->getOutlineColor() << endl;
