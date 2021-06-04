@@ -74,6 +74,122 @@ public:
     Rectangle* MaxPeriRect();
 };
 
+class Circle: public Point
+{
+private:
+    int r;
+    int OutlineColor;
+public:
+    Circle() : Point()
+    {
+        r = OutlineColor = 0;
+    }
+
+    Circle(Point p, int _r, int _outlinecolor) : Point(p)
+    {
+        r = _r;
+        OutlineColor = _outlinecolor;
+    }
+
+    void Draw()
+    {
+        cout << "Circle: Center point(" << (*this)[1] << "," << (*this)[2] << ") -- radius = " << r << endl;
+    }
+
+    int getOutlineColor()
+    {
+        return OutlineColor;
+    }
+};
+
+//------------------------------------------
+class Disk : public Circle
+{
+private:
+    int FillColor;
+public:
+    Disk() : Circle()
+    {
+        FillColor = 0;
+    }
+
+    Disk(Point p, int _r, int _fillcolor, int _outlinecolor) : Circle(p, _r, _outlinecolor)
+    {
+        FillColor = _fillcolor;
+    }
+
+    void Draw()
+    {
+        Circle::Draw();
+        cout << "--Fill with color: " << FillColor << endl;
+        cout << "--Outlined with color: " << this->getOutlineColor() << endl;
+    }
+};
+
+//-------------------------------------------
+class Line
+{
+private:
+    Point p1, p2;
+    int OutlineColor;
+
+public:
+    Line() : p1(), p2()
+    {
+        OutlineColor = 0;
+    }
+
+    Line(Point _p1, Point _p2, int _outlinecolor)
+    {
+        p1 = _p1;
+        p2 = _p2;
+        OutlineColor = _outlinecolor;
+    }
+
+    void Draw()
+    {
+        cout << "Line: from (" << p1[1] << "," << p1[2] << ") to (" << p2[1] << "," << p2[2] << ")";
+        cout << " with color: " << OutlineColor << endl;
+    }
+};
+
+//-------------------------------------------
+class Triangle
+{
+private:
+    Point p1, p2, p3;
+    int OutlineColor, FillColor;
+
+public:
+    Triangle() : p1(), p2(), p3()
+    {
+        OutlineColor = FillColor = 0;
+    }
+
+    Triangle(Point _p1, Point _p2, Point _p3, int _outlinecolor, int _fillcolor)
+    {
+        p1 = _p1;
+        p2 = _p2;
+        p3 = _p3;
+        OutlineColor = _outlinecolor;
+        FillColor = _fillcolor;
+    }
+
+    void Draw()
+    {
+        cout << "Triangle:" << endl;
+        cout << "--";
+        Line(p1, p2, OutlineColor).Draw();
+        cout << "--";
+        Line(p2, p3, OutlineColor).Draw();
+        cout << "--";
+        Line(p3, p1, OutlineColor).Draw();
+
+        cout << "--Fill with color: " << FillColor << endl;
+    }
+};
+
+
 //--------------------------------------------
 void Point::InputPoint()
 {
@@ -208,6 +324,7 @@ int main()
     */
 
     //-------------------------
+    /*
     RectangleArray ra;
     ra.Input();
     
@@ -217,6 +334,25 @@ int main()
 
     Rectangle* maxPeri = ra.MaxPeriRect();
     maxPeri->Output();
+    */
+
+    Point A(100,100);
+    Circle c(A, 80, 81);
+
+    Point B(400,100);
+    Disk d(B, 80, 78, 79);
+
+    Line l(A, B, 5);
+ 
+    Point C(250,150);
+    Point D(100,400);
+    Point E(400,400);
+    Triangle t(C, D, E, 6, 6);
+
+    c.Draw();
+    d.Draw();
+    l.Draw();
+    t.Draw();
 
     return 0;
 
